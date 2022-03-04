@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: GridData
   m_EditorClassIdentifier: 
   _rowCount: 9
-  _columnCount: 20
+  _columnCount: 17
