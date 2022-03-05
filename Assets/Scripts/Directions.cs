@@ -2,7 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CellContentData : ScriptableObject
+public enum Directions
 {
-
+    Top,
+    Right,
+    Left,
+    Bottom
 }
+

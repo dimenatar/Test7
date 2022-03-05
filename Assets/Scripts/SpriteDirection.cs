@@ -4,9 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class Cell
+public class SpriteDirection
 {
-    [SerializeField] private CellTypes _cellType;
 
-    public CellTypes CellType => _cellType; 
 }
