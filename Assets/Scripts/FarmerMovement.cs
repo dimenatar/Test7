@@ -21,6 +21,7 @@ public class FarmerMovement : MovementByCells
 
     private void PointReached()
     {
+        Debug.LogWarning("point reached");
         _currentCell = _targetCell;
         StartMoveToCell(GetClosestCellToPlayer(GetDirectionToPlayer(_player), _player));
     }
@@ -29,7 +30,6 @@ public class FarmerMovement : MovementByCells
     {
         Vector3 direction = player.transform.position - transform.position;
         Dictionary<Cell, Directions> directionToCells = new Dictionary<Cell, Directions>();
-        //List<Cell> neighbourCells = new List<Cell>();
         if (direction.x < 0)
         {
             directionToCells.Add(GetNextCellByDirection(_grid, _currentCell, Directions.Left), Directions.Left);
@@ -65,6 +65,7 @@ public class FarmerMovement : MovementByCells
                 minDirection = neighbourCells.ElementAt(i).Value;
             }
         }
+        Debug.Log(minDistanceCell.CellPosition);
         OnDirectionChanged?.Invoke(minDirection);
         return minDistanceCell;
     }

@@ -31,8 +31,13 @@ public class SpriteDirectionController : MonoBehaviour
 
     public void SetSpriteBundle(Sprite topView, Sprite rightView, Sprite bottomView, Sprite leftView)
     {
-        _spriteByDirecitons = new Dictionary<Directions, Sprite>() { {Directions.Top, topView }, {Directions.Right, rightView },
-         {Directions.Bottom, bottomView }, {Directions.Left, leftView } };
+        Dictionary<Directions, Sprite> updatedDictionary = new Dictionary<Directions, Sprite>() { {Directions.Top, topView }, {Directions.Right, rightView },
+        {Directions.Bottom, bottomView }, {Directions.Left, leftView } };
+        if (_spriteByDirecitons != null)
+        {
+            _spriteRenderer.sprite = updatedDictionary.Values.ElementAt(_spriteByDirecitons.Keys.ToList().IndexOf(_currentDirection));
+        }
+        _spriteByDirecitons = updatedDictionary;
     }
 
     public void SetCurrentSprite(Directions direction)

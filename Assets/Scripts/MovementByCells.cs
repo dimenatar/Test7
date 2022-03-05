@@ -5,7 +5,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Rigidbody))]
-public class MovementByCells : Movement
+public class MovementByCells : Movement, IGroundMove
 {
     [SerializeField] protected Grid _grid;
     [SerializeField] protected int _startCellPositionX;
@@ -13,8 +13,10 @@ public class MovementByCells : Movement
     [SerializeField] protected List<CellTypes> _allowedCellTypesToSpawn;
     [SerializeField] private float _distance;
 
-    protected Cell _currentCell;
-    protected Cell _targetCell;
+    private float _speedMultiplier = 1;
+
+    public Cell _currentCell;
+    public Cell _targetCell;
     protected Rigidbody _rigidbody;
 
     public event Action OnPointReached;
@@ -140,6 +142,11 @@ public class MovementByCells : Movement
 
     }
 
+    public void SetMultiplier(float multiplier)
+    {
+        _speedMultiplier = multiplier;
+    }
+
     public Cell GetNewRandomTargetCell(Grid grid)
     {
         int maxIterations = 10000;
@@ -167,7 +174,7 @@ public class MovementByCells : Movement
         {
             if (Mathf.Abs(Vector3.Distance(transform.position, _targetCell.CellPosition)) > _distance)
             {
-                _rigidbody.velocity = (_targetCell.CellPosition - transform.position).normalized * _speed;
+                _rigidbody.velocity = (_targetCell.CellPosition - transform.position).normalized * _speed * _speedMultiplier;
             }
             else
             {

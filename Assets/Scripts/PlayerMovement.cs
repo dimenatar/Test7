@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerMovement : Movement
+public class PlayerMovement : Movement, IGroundMove
 {
     private Rigidbody _rigidbody;
 
@@ -71,5 +71,10 @@ public class PlayerMovement : Movement
                 }
             }
         }
+    }
+
+    public void SetMultiplier(float speedMultiplier)
+    {
+        
     }
 }
