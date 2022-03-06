@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Farmer : MonoBehaviour, ICharacter
 {
-    [SerializeField] private float _health;
+    [SerializeField] private int _health;
     [SerializeField] private FarmerMovement _farmerMovement;
     [SerializeField] private SpriteDirectionController _spriteController;
     [SerializeField] private FarmerSprites _farmerSprites;
@@ -12,13 +12,20 @@ public class Farmer : MonoBehaviour, ICharacter
     [SerializeField] private PigController _pigController;
 
     private bool _isAngry;
-    
+
+    public int Health => _health;
+
     public event ICharacter.Died OnDied;
     public event ICharacter.DamageTaken OnDamageTaken;
 
     public void ChangeTarget()
     {
         _farmerMovement.UpdatePlayer(_pigController.SetNewPlayer());
+    }
+
+    public void KilledPig(GameObject pig)
+    {
+        _pigController.ReducePigCount(pig);
     }
 
     public void BecomeAngry()
@@ -40,11 +47,16 @@ public class Farmer : MonoBehaviour, ICharacter
 
     public void TakeDamage(int amount)
     {
-        OnDamageTaken?.Invoke(amount);
         _health -= amount;
+        OnDamageTaken?.Invoke(_health);
         if (_health < 0)
         {
             OnDied?.Invoke(gameObject);
         }
+    }
+
+    private void SetNewTarget()
+    {
+
     }
 }

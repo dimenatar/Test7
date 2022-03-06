@@ -5,7 +5,7 @@ using System.Linq;
 
 public class FarmerMovement : MovementByCells
 {
-    [SerializeField] private GameObject _player;
+    [SerializeField] private GameObject _target;
 
     private void Awake()
     {
@@ -16,18 +16,28 @@ public class FarmerMovement : MovementByCells
     private void Start()
     {
         SpawnObjectOnCoordinates(_startCellPositionY, _startCellPositionX, _grid);
-        StartMoveToCell(GetClosestCellToPlayer(GetDirectionToPlayer(_player), _player));
+        StartMoveToCell(GetClosestCellToPlayer(GetDirectionToPlayer(_target), _target));
     }
 
     public void UpdatePlayer(GameObject player)
     {
-        _player = player;
+        _target = player;
     }
 
     private void PointReached()
     {
+        Debug.LogWarning("point reached:" + _targetCell.CellCoordinates[0] + " " + _targetCell.CellCoordinates[1]);
         _currentCell = _targetCell;
-        StartMoveToCell(GetClosestCellToPlayer(GetDirectionToPlayer(_player), _player));
+        StartMoveToCell(GetClosestCellToPlayer(GetDirectionToPlayer(_target), _target));
+    }
+
+    private Dictionary<Cell, Directions> TryAddCell(Dictionary<Cell, Directions> directions, Cell cell, Directions direction)
+    {
+        if (cell != null)
+        {
+            directions.Add(cell, direction);
+        }
+        return directions;
     }
 
     private Dictionary<Cell, Directions> GetDirectionToPlayer(GameObject player)
@@ -36,21 +46,29 @@ public class FarmerMovement : MovementByCells
         Dictionary<Cell, Directions> directionToCells = new Dictionary<Cell, Directions>();
         if (direction.x < 0)
         {
-            directionToCells.Add(GetNextCellByDirection(_grid, _currentCell, Directions.Left), Directions.Left);
+            directionToCells = TryAddCell(directionToCells, GetNextCellByDirection(_grid, _currentCell, Directions.Left), Directions.Left);
+            
         }
         else
         {
-            directionToCells.Add((GetNextCellByDirection(_grid, _currentCell, Directions.Right)), Directions.Right);
+            directionToCells = TryAddCell(directionToCells, GetNextCellByDirection(_grid, _currentCell, Directions.Right), Directions.Right);
         }
         if (direction.z < 0)
         {
-            directionToCells.Add(GetNextCellByDirection(_grid, _currentCell, Directions.Bottom), Directions.Bottom);
+            directionToCells = TryAddCell(directionToCells, GetNextCellByDirection(_grid, _currentCell, Directions.Bottom), Directions.Bottom);
         }
         else
         {
-            directionToCells.Add(GetNextCellByDirection(_grid, _currentCell, Directions.Top), Directions.Top);
+            directionToCells = TryAddCell(directionToCells, GetNextCellByDirection(_grid, _currentCell, Directions.Top), Directions.Top);
         }
-        directionToCells.RemoveAll((key, value) => key == null || key.CellType == CellTypes.Stone);
+        directionToCells.RemoveAll((key, value) => key.CellType == CellTypes.Stone);
+
+        Debug.Log("directions: ");
+        foreach (var item in directionToCells.Keys)
+        {
+            Debug.Log(item.CellCoordinates[0] + " " + item.CellCoordinates[1]);
+        }
+
         return directionToCells;
     }
 
@@ -69,7 +87,7 @@ public class FarmerMovement : MovementByCells
                 minDirection = neighbourCells.ElementAt(i).Value;
             }
         }
-        Debug.Log(minDistanceCell.CellCoordinates[0] + " " + minDistanceCell.CellCoordinates[1]);
+        //Debug.Log(minDistanceCell.CellCoordinates[0] + " " + minDistanceCell.CellCoordinates[1]);
         OnDirectionChanged?.Invoke(minDirection);
         return minDistanceCell;
     }

@@ -15,6 +15,10 @@ public class KillingTrigger : MonoBehaviour
             {
                 _farmer.ChangeTarget();
             }
+            else
+            {
+                _farmer.KilledPig(other.gameObject);
+            }
             Destroy(other.gameObject);
         }
     }

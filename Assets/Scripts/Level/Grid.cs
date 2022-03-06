@@ -24,7 +24,7 @@ public class Grid : MonoBehaviour
         }
         else
         {
-            throw new System.Exception("Cell index out of bounds! :" + row + ", " + column);
+            return null;
         }
     }
 

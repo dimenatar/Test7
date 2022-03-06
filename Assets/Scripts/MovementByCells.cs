@@ -32,7 +32,7 @@ public class MovementByCells : Movement, IGroundMove
                 throw new System.Exception("cant find allowed cell to spawn!");
             }
         }
-        Debug.Log(_currentCell.CellCoordinates[0] + " " + _currentCell.CellCoordinates[1]);
+        //Debug.Log(_currentCell.CellCoordinates[0] + " " + _currentCell.CellCoordinates[1]);
         transform.position = _currentCell.CellPosition;
     }
 

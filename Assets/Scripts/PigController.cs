@@ -24,6 +24,11 @@ public class PigController : MonoBehaviour
         return _player;
     }
 
+    public void ReducePigCount(GameObject pig)
+    {
+        _pigs.Remove(pig);
+    }
+
     public GameObject SetNewPlayer()
     {
         _pigs.Remove(_player);

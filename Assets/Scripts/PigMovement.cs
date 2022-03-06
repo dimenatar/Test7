@@ -19,7 +19,6 @@ public class PigMovement : MovementByCells
 
     private void PointReached()
     {
-        Debug.LogWarning("point reached");
         _currentCell = _targetCell;
         StartMoveToCell(GetNewRandomTargetCell(_grid));
     }

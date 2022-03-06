@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class Pig : MonoBehaviour, ICharacter
 {
-    [SerializeField] private float _health;
+    [SerializeField] private int _health;
+
     public event ICharacter.Died OnDied;
     public event ICharacter.DamageTaken OnDamageTaken;
 
+    public int Health => _health;
+
     public void TakeDamage(int amount)
     {
-        OnDamageTaken?.Invoke(amount);
         _health -= amount;
+        OnDamageTaken?.Invoke(_health);
         if (_health <= 0)
         {
             OnDied?.Invoke(gameObject);
