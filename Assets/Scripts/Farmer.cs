@@ -14,6 +14,7 @@ public class Farmer : MonoBehaviour, ICharacter
     private bool _isAngry;
     
     public event ICharacter.Died OnDied;
+    public event ICharacter.DamageTaken OnDamageTaken;
 
     public void ChangeTarget()
     {
@@ -35,5 +36,15 @@ public class Farmer : MonoBehaviour, ICharacter
         _isAngry = false;
         _farmerMovement.SetMultiplier(1);
         _spriteController.SetSpriteBundle(_farmerSprites.NormalTopView, _farmerSprites.NormalRightView, _farmerSprites.NormalBottomView, _farmerSprites.NormalLeftView);
+    }
+
+    public void TakeDamage(int amount)
+    {
+        OnDamageTaken?.Invoke(amount);
+        _health -= amount;
+        if (_health < 0)
+        {
+            OnDied?.Invoke(gameObject);
+        }
     }
 }

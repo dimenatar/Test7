@@ -10,6 +10,8 @@ public class PigController : MonoBehaviour
 
     [SerializeField] private List<GameObject> _pigs;
     [SerializeField] private TouchController _touchController;
+    [SerializeField] private GameObject _markerPrefab;
+
     private GameObject _player;
 
     private void Start()
@@ -31,6 +33,8 @@ public class PigController : MonoBehaviour
             Destroy(newPlayer.GetComponent<MovementByCells>());
             newPlayer.AddComponent<PlayerMovement>();
             newPlayer.GetComponent<PlayerMovement>().Speed = _player.GetComponent<PlayerMovement>().Speed;
+            GameObject marker = Instantiate(_markerPrefab, newPlayer.transform);
+            marker.transform.localPosition = new Vector3(0, 0, 1);
             _touchController.SetPlayerMovement(newPlayer.GetComponent<PlayerMovement>());
             _player = newPlayer;
             return newPlayer;
