@@ -19,9 +19,13 @@ public class FarmerMovement : MovementByCells
         StartMoveToCell(GetClosestCellToPlayer(GetDirectionToPlayer(_player), _player));
     }
 
+    public void UpdatePlayer(GameObject player)
+    {
+        _player = player;
+    }
+
     private void PointReached()
     {
-        Debug.LogWarning("point reached");
         _currentCell = _targetCell;
         StartMoveToCell(GetClosestCellToPlayer(GetDirectionToPlayer(_player), _player));
     }
@@ -65,7 +69,7 @@ public class FarmerMovement : MovementByCells
                 minDirection = neighbourCells.ElementAt(i).Value;
             }
         }
-        Debug.Log(minDistanceCell.CellPosition);
+        Debug.Log(minDistanceCell.CellCoordinates[0] + " " + minDistanceCell.CellCoordinates[1]);
         OnDirectionChanged?.Invoke(minDirection);
         return minDistanceCell;
     }

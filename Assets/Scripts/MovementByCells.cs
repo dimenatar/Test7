@@ -24,7 +24,6 @@ public class MovementByCells : Movement, IGroundMove
     public void SpawnObjectOnCoordinates(int row, int column, Grid grid)
     {
         _currentCell = grid.GetCellByCoordinates(row, column);
-        // if we are trying to spawn object on stone cell, try to find another "free" cell
         if (_currentCell.CellType == CellTypes.Stone)
         {
             _currentCell = grid.GetFreeCell(row, column, grid, _allowedCellTypesToSpawn);
@@ -164,6 +163,7 @@ public class MovementByCells : Movement, IGroundMove
 
     public void StartMoveToCell(Cell cell)
     {
+        //Debug.Log(cell.CellCoordinates[0] + " " + cell.CellCoordinates[1]);
         _targetCell = cell;
         StartCoroutine(nameof(MoveToPoint));
     }

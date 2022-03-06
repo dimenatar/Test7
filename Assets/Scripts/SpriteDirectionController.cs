@@ -21,11 +21,11 @@ public class SpriteDirectionController : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _currentDirection = _startDirection;
-        _movement.OnDirectionChanged += SetCurrentSprite;
     }
 
     private void Start()
     {
+        _movement.OnDirectionChanged += SetCurrentSprite;
         SetSpriteBundle(_topView, _rightView, _bottomView, _leftView);
     }
 

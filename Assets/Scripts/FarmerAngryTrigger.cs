@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
-public class FarmerTrigger : MonoBehaviour
+public class FarmerAngryTrigger : MonoBehaviour
 {
     [SerializeField] private Farmer _farmer;
 

@@ -9,10 +9,16 @@ public class Farmer : MonoBehaviour, ICharacter
     [SerializeField] private SpriteDirectionController _spriteController;
     [SerializeField] private FarmerSprites _farmerSprites;
     [SerializeField] private float _angrySpeedMultiplier;
+    [SerializeField] private PigController _pigController;
 
     private bool _isAngry;
     
     public event ICharacter.Died OnDied;
+
+    public void ChangeTarget()
+    {
+        _farmerMovement.UpdatePlayer(_pigController.SetNewPlayer());
+    }
 
     public void BecomeAngry()
     {

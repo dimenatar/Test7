@@ -28,6 +28,12 @@ public class TouchController : MonoBehaviour
 		get { return movementVector;}
 	}
 
+	public void SetPlayerMovement(PlayerMovement playerMovement)
+    {
+		TouchEvent -= _playerMovement.MovePlayer;
+		_playerMovement = playerMovement;
+		TouchEvent += _playerMovement.MovePlayer;
+	}
 
 	public void BeginDrag()
 	{
