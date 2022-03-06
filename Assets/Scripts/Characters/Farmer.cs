@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Farmer : MonoBehaviour, ICharacter
@@ -10,7 +11,9 @@ public class Farmer : MonoBehaviour, ICharacter
     [SerializeField] private FarmerSprites _farmerSprites;
     [SerializeField] private float _angrySpeedMultiplier;
     [SerializeField] private PigController _pigController;
+    [SerializeField] private GameObject _player;
 
+    private List<ICharacter> _foundPigs = new List<ICharacter>();
     private bool _isAngry;
 
     public int Health => _health;
@@ -18,14 +21,38 @@ public class Farmer : MonoBehaviour, ICharacter
     public event ICharacter.Died OnDied;
     public event ICharacter.DamageTaken OnDamageTaken;
 
-    public void ChangeTarget()
+    private void Awake()
     {
-        _farmerMovement.UpdatePlayer(_pigController.SetNewPlayer());
+        _farmerMovement.UpdatePlayer(_player);
     }
 
-    public void KilledPig(GameObject pig)
+    public void ChangeTarget(GameObject target)
     {
-        _pigController.ReducePigCount(pig);
+        if (target != null)
+        {
+            _farmerMovement.UpdatePlayer(target);
+        }
+    }
+
+    public void FoundPig(ICharacter pig)
+    {
+        if (!_foundPigs.Contains(pig))
+        {
+            _foundPigs.Add(pig);
+        }
+        BecomeAngry();
+    }
+
+    public void RemovePig(ICharacter pig)
+    {
+        if (_foundPigs.Contains(pig))
+        {
+            _foundPigs.Remove(pig);
+            if (_foundPigs.Count == 0)
+            {
+                StopBeingAngry();
+            }
+        }
     }
 
     public void BecomeAngry()
@@ -53,10 +80,5 @@ public class Farmer : MonoBehaviour, ICharacter
         {
             OnDied?.Invoke(gameObject);
         }
-    }
-
-    private void SetNewTarget()
-    {
-
     }
 }

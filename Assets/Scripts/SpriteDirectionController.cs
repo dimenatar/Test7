@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer))]
 public class SpriteDirectionController : MonoBehaviour
 {
     [SerializeField] private Sprite _topView;
@@ -12,14 +10,13 @@ public class SpriteDirectionController : MonoBehaviour
     [SerializeField] private Sprite _leftView;
     [SerializeField] private Directions _startDirection;
     [SerializeField] private Movement _movement;
+    [SerializeField] private SpriteRenderer _spriteRenderer;
 
-    private SpriteRenderer _spriteRenderer;
     private Dictionary<Directions, Sprite> _spriteByDirecitons;
     private Directions _currentDirection; 
 
     private void Awake()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
         _currentDirection = _startDirection;
     }
 

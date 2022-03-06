@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,6 +12,8 @@ public class PigController : MonoBehaviour
     [SerializeField] private GameObject _markerPrefab;
 
     private GameObject _player;
+
+    public List<GameObject> Pigs => _pigs;
 
     private void Start()
     {
@@ -38,6 +39,7 @@ public class PigController : MonoBehaviour
             Destroy(newPlayer.GetComponent<MovementByCells>());
             newPlayer.AddComponent<PlayerMovement>();
             newPlayer.GetComponent<PlayerMovement>().Speed = _player.GetComponent<PlayerMovement>().Speed;
+            newPlayer.GetComponent<PlayerMovement>().OnDirectionChanged += newPlayer.GetComponent<SpriteDirectionController>().SetCurrentSprite;
             GameObject marker = Instantiate(_markerPrefab, newPlayer.transform);
             marker.transform.localPosition = new Vector3(0, 0, 1);
             _touchController.SetPlayerMovement(newPlayer.GetComponent<PlayerMovement>());

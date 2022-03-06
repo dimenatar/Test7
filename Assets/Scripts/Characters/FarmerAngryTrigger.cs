@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,11 +12,8 @@ public class FarmerAngryTrigger : MonoBehaviour
     {
         if (other.GetComponent<ICharacter>() != null)
         {
-            _farmer.BecomeAngry();
-            if (!_pigList.Contains(other.GetComponent<ICharacter>()))
-            {
-                _pigList.Add(other.GetComponent<ICharacter>());
-            }
+            _farmer.ChangeTarget(other.gameObject);
+            _farmer.FoundPig(other.GetComponent<ICharacter>());
         }
     }
 
@@ -25,11 +21,7 @@ public class FarmerAngryTrigger : MonoBehaviour
     {
         if (other.GetComponent<ICharacter>() != null)
         {
-            _pigList.Remove(other.GetComponent<ICharacter>());
-            if (_pigList.Count <= 0)
-            {
-                _farmer.StopBeingAngry();
-            }
+            _farmer.RemovePig(other.GetComponent<ICharacter>());
         }
     }
 }

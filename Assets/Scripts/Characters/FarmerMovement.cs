@@ -1,7 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 
 public class FarmerMovement : MovementByCells
 {
@@ -26,7 +25,6 @@ public class FarmerMovement : MovementByCells
 
     private void PointReached()
     {
-        Debug.LogWarning("point reached:" + _targetCell.CellCoordinates[0] + " " + _targetCell.CellCoordinates[1]);
         _currentCell = _targetCell;
         StartMoveToCell(GetClosestCellToPlayer(GetDirectionToPlayer(_target), _target));
     }
@@ -42,7 +40,15 @@ public class FarmerMovement : MovementByCells
 
     private Dictionary<Cell, Directions> GetDirectionToPlayer(GameObject player)
     {
-        Vector3 direction = player.transform.position - transform.position;
+        Vector3 direction;
+        if (player)
+        {
+            direction = player.transform.position - transform.position;
+        }
+        else
+        {
+            direction = _target.transform.position - transform.position;
+        }
         Dictionary<Cell, Directions> directionToCells = new Dictionary<Cell, Directions>();
         if (direction.x < 0)
         {
@@ -62,13 +68,6 @@ public class FarmerMovement : MovementByCells
             directionToCells = TryAddCell(directionToCells, GetNextCellByDirection(_grid, _currentCell, Directions.Top), Directions.Top);
         }
         directionToCells.RemoveAll((key, value) => key.CellType == CellTypes.Stone);
-
-        Debug.Log("directions: ");
-        foreach (var item in directionToCells.Keys)
-        {
-            Debug.Log(item.CellCoordinates[0] + " " + item.CellCoordinates[1]);
-        }
-
         return directionToCells;
     }
 
@@ -87,7 +86,6 @@ public class FarmerMovement : MovementByCells
                 minDirection = neighbourCells.ElementAt(i).Value;
             }
         }
-        //Debug.Log(minDistanceCell.CellCoordinates[0] + " " + minDistanceCell.CellCoordinates[1]);
         OnDirectionChanged?.Invoke(minDirection);
         return minDistanceCell;
     }

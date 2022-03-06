@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New grid data", menuName = "Grid data", order = 41)]

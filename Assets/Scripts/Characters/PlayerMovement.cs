@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -14,8 +12,11 @@ public class PlayerMovement : Movement, IGroundMove
 
     public void MovePlayer(Vector2 direction)
     {
-        _rigidbody.velocity = new Vector3(direction.x, 0, direction.y) * _speed;
-        GetDirection(direction);
+        if (_rigidbody)
+        {
+            _rigidbody.velocity = new Vector3(direction.x, 0, direction.y) * _speed;
+            GetDirection(direction);
+        }
     }
 
     private void GetDirection(Vector2 force)
