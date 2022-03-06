@@ -521,8 +521,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 1
   _grid: {fileID: 963194230}
-  _startCellPositionX: 0
-  _startCellPositionY: 2
+  _startCellPositionX: 5
+  _startCellPositionY: 0
   _allowedCellTypesToSpawn: 00000000
   _distance: 0.1
   _currentCell:
@@ -2196,6 +2196,7 @@ GameObject:
   - component: {fileID: 963194231}
   - component: {fileID: 963194232}
   - component: {fileID: 963194233}
+  - component: {fileID: 963194234}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2350,6 +2351,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pigController: {fileID: 963194231}
   _farmer: {fileID: 1662958777}
+--- !u!114 &963194234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38c8150932b7a1345b781a6889d59b1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _grid: {fileID: 963194230}
+  _movementByCells:
+  - {fileID: 1662958774}
+  - {fileID: 355891697}
+  - {fileID: 209394999}
+  - {fileID: 2031238077}
 --- !u!1 &1013632494
 GameObject:
   m_ObjectHideFlags: 0

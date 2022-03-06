@@ -21,6 +21,11 @@ public class MovementByCells : Movement, IGroundMove
 
     public event Action OnPointReached;
 
+    public virtual void Initialise()
+    {
+
+    }
+
     public void SpawnObjectOnCoordinates(int row, int column, Grid grid)
     {
         _currentCell = grid.GetCellByCoordinates(row, column);

@@ -47,7 +47,7 @@ public class Grid : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void Initialise()
     {
         _cellFactory.SetUpCells(_rowCount, _columnCount, _cellXOffset, _cellZOffset, _cellRotation, _newRowXOffset, Vector3.zero);
     }

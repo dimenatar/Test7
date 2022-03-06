@@ -8,9 +8,8 @@ public class PigMovement : MovementByCells
         _rigidbody = GetComponent<Rigidbody>();
     }
 
-    private void Start()
+    public override void Initialise()
     {
-
         SpawnObjectOnCoordinates(_startCellPositionY, _startCellPositionX, _grid);
         StartMoveToCell(GetNewRandomTargetCell(_grid));
     }

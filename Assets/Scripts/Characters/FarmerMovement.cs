@@ -12,7 +12,7 @@ public class FarmerMovement : MovementByCells
         OnPointReached += PointReached;
     }
 
-    private void Start()
+    public override void Initialise()
     {
         SpawnObjectOnCoordinates(_startCellPositionY, _startCellPositionX, _grid);
         StartMoveToCell(GetClosestCellToPlayer(GetDirectionToPlayer(_target), _target));
